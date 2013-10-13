@@ -22,7 +22,7 @@
 - name: Users | Upload SSH Config.
   when: not project.is_local
   sudo_user: ${project.user}
-  copy: src=files/ssh/config dest=${project.root}/home/.ssh/config mode=0600
+  copy: src=$files/ssh/config dest=${project.root}/home/.ssh/config mode=0600
   tags:
     - base
     - provision
@@ -30,7 +30,7 @@
 - name: Users | Upload SSH Files.
   when: not project.is_local
   sudo_user: ${project.user}
-  copy: src=files/ssh/key dest=${project.root}/home/.ssh/id_rsa mode=0600
+  copy: src=$files/ssh/key dest=${project.root}/home/.ssh/id_rsa mode=0600
   tags:
     - base
     - provision
@@ -38,7 +38,7 @@
 - name: Users | Upload SSH known hosts.
   when: not project.is_local
   sudo_user: ${project.user}
-  copy: src=files/ssh/known_hosts dest=${project.root}/home/.ssh/known_hosts mode=0600
+  copy: src=$files/ssh/known_hosts dest=${project.root}/home/.ssh/known_hosts mode=0600
   tags:
     - base
     - provision

@@ -8,10 +8,9 @@
 INVENTORY=$1
 ROLE=${2:-"site"}
 
-HEREDIR=$(dirname $0)
-
+echo "Pulling vars from $PROJECTDIR"
 echo "Configuring ..."
 echo "inventory: ${INVENTORY}"
 echo "role: ${ROLES}"
 
-/usr/bin/env ansible-playbook -K -i $INVENTORY "${HEREDIR}/playbook/${ROLE}.yml" "${@:3}"
+/usr/bin/env ansible-playbook --ask-sudo-pass --inventory-file=$INVENTORY "$(dirname $0)/playbook/${ROLE}.yml" --extra-vars="files=$PWD/deployment/files" "${@:3}"
