@@ -1,0 +1,11 @@
+[uwsgi]
+threads = 40
+master = 1
+socket = /tmp/django-{{ project.name }}.sock
+chmod-socket = 775
+chown-socket = {{ project.group }}
+logto = /var/log/uwsgi/{{ project.name }}.log
+chdir = {{ project.root }}/code/application/
+virtualenv = {{ project.root }}/environ/
+env = DJANGO_SETTINGS_MODULE={{ django.settings }}
+module = {{ django.wsgi }}

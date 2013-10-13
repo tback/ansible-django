@@ -1,0 +1,11 @@
+---
+- name: Celery | Install CeleryD supervisor task
+  action: template src=celeryd.ini.j2 dest=/etc/supervisor/conf.d/${project.name}_celeryd.ini
+  notify:
+    - restart uwsgi
+
+- name: Celery | Install CeleryBeat supervisor task
+  action: template src=celerybeat.ini.j2 dest=/etc/supervisor/conf.d/${project.name}_celerybeat.ini
+  notify:
+    - restart uwsgi
+

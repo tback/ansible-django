@@ -1,0 +1,14 @@
+---
+- name: Pip | Install Requirements.
+  sudo_user: ${project.user}
+  pip: >
+    requirements=$item
+    virtualenv=${django.virtualenv}
+  with_items:
+    - ${project.root}/code/requirements/base.list
+    - ${project.root}/code/requirements/${project.mode}.list
+  tags:
+    - packages
+    - application
+    - pip
+

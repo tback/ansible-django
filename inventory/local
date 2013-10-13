@@ -1,0 +1,15 @@
+[local-webservers]
+localhost
+
+[local-dbservers]
+localhost
+
+[webservers:children]
+local-webserver
+
+[dbservers:children]
+local-dbserver
+
+[local:children]
+local-dbserver
+local-webserver
