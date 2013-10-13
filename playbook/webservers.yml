@@ -1,0 +1,13 @@
+---
+# file: webservers.yml
+- name: Configure all webservers
+  hosts: webservers
+  sudo: yes
+
+  roles:
+    - { role: common }
+    - { role: users }
+    - { role: nginx }
+    - { role: uwsgi }
+    - { role: celery }
+    - { role: django }

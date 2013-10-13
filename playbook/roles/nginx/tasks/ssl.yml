@@ -1,0 +1,25 @@
+---
+# this part would like some improvements, I realise there could be better
+# places to put ssl certs.
+- name: Commmon | Create the SSL directory.
+  when: not $project.is_local
+  file: state=directory path=${project.root}ssl/
+  tags:
+    - configuration
+    - ssl
+
+- name: Commmon | Upload SSL private key.
+  when: not $project.is_local
+  copy: src=files/ssl/${project.name}-private-key.pem dest=${project.root}ssl/${project.name}-private-key.pem
+  tags:
+    - configuration
+    - ssl
+
+- name: Commmon | Upload SSL public key.
+  when: not $project.is_local
+  copy: src=files/ssl/${project.name}-cert.pem dest=${project.root}ssl/${project.name}-cert.pem
+  tags:
+    - configuration
+    - ssl
+
+

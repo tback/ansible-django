@@ -1,0 +1,27 @@
+---
+- name: Commmon | Create the project directory.
+  when: not project.is_local
+  file: state=directory path=${project.root}
+  tags:
+    - base
+    - provision
+
+- name: Commmon | Install required system packages.
+  apt: >
+    pkg=${item}
+    state=installed
+    update-cache=yes
+  with_items: system.apt
+  tags:
+    - base
+    - packages
+    - provision
+
+- name: Commmon | Install required Python packages.
+  sudo: yes
+  easy_install: name=${item}
+  with_items: system.pip
+  tags:
+    - base
+    - provision
+    - packages
