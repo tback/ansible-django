@@ -1,0 +1,19 @@
+---
+
+system:
+  apt:
+    - build-essential
+    - git
+    - nginx
+    - postgresql
+    - postgresql-server-dev-all
+    - python-dev
+    - python-setuptools
+    - python-psycopg2
+    - redis-server
+    - postfix
+    - libpq-dev
+  pip:
+    - pip
+    - virtualenv
+    - uwsgi

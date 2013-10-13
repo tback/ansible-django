@@ -1,0 +1,48 @@
+upstream {{ project.name }} {
+    server                  unix:/tmp/django-{{ project.name }}.sock;
+}
+
+server {
+
+    listen                  80;
+    listen                  443 ssl;
+
+    charset                 utf-8;
+    server_tokens           off;
+
+    server_name             {{ project.name }};
+    ssl_certificate         {{ project.root }}/ssl/{{ project.name }}-cert.pem;
+    ssl_certificate_key     {{ project.root }}/ssl/{{ project.name }}-private-key.pem;
+
+    access_log              /var/log/nginx/{{ project.name }}.access.log;
+    error_log               /var/log/nginx/{{ project.name }}.error.log;
+
+    expires modified        -1d;
+
+    rewrite                 ^/(.*)/favicon.ico$ /favicon.ico last;
+
+    location /files/ {
+        alias               {{ project.root }}/public/files/;
+    }
+
+    location /static/sass/ {
+        deny                all;
+        return              404;
+    }
+    location /static/(*.rb|*) {
+        deny                all;
+        return              404;
+    }
+    location /static/ {
+        alias               {{ project.root }}/public/static/;
+        autoindex           off;
+    }
+
+
+    location / {
+        uwsgi_pass          {{ project.name }};
+        include             /etc/nginx/uwsgi_params;
+    }
+
+}
+

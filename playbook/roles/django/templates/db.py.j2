@@ -1,0 +1,42 @@
+# project
+#   __init__.py
+#   manage.py
+#   base/
+#     __init__.py
+#     default.py
+#     live.py
+#     local.py
+#     test.py
+#     modules/
+#       db.py <---- this file.
+
+
+# file: base/settings/test.py
+#  just specify an in memory sqlite database
+#
+# file: base/settings/local.py
+#  just specify a local sqlite database
+#
+# file: base/settings/live.py
+#
+#    from .modules.db import DatabaseConfig as db
+#
+#    DATABASES = {
+#        'default': {
+#            'ENGINE': db.engine,
+#            'NAME': db.name,
+#            'USER': db.user,
+#            'PASSWORD': db.password,
+#            'HOST': db.host,
+#            'PORT': db.port,
+#        }
+#    }
+#
+
+class DatabaseConfig:
+    engine = 'django.db.backends.postgresql_psycopg2'
+    user = "{{ database.user }}"
+    password = "{{ database.password }}"
+    name = "{{ database.name }}"
+    host = '{{ database.host }}'
+    port = '{{ database.port }}'

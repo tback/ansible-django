@@ -1,0 +1,18 @@
+; ==========================================
+;  celerybeat supervisor example for Django
+; ==========================================
+
+[program:celerybeat_{{ project.name }}]
+command={{ project.root }}/code/application/manage.py celerybeat --schedule=/var/lib/celery/celerybeat-schedule --loglevel=INFO --settings=base.settings.live
+directory={{ project.root }}/code/application/
+user={{ project.user }}
+numprocs=1
+stdout_logfile=/var/log/celery/{{ project.name }}_beat.log
+stderr_logfile=/var/log/celery/{{ project.name }}_beat_error.log
+autostart=true
+autorestart=true
+startsecs=10
+
+; if rabbitmq is supervised, set its priority higher
+; so it starts first
+priority=999

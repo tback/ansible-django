@@ -1,0 +1,26 @@
+---
+- name: Uwsgi | Create uwsgi application placeholder.
+  notify: restart uwsgi
+  command: touch /etc/uwsgi/apps-available/${project.name}.ini
+  tags:
+    - configuration
+    - uwsgi
+    - appserver
+
+- name: Uwsgi | Enable uWsgi application.
+  notify: restart uwsgi
+  command: ln -s /etc/uwsgi/apps-available/${project.name}.ini /etc/uwsgi/apps-enabled/${project.name}.ini creates=/etc/uwsgi/apps-enabled/${project.name}.ini
+  tags:
+    - configuration
+    - uwsgi
+    - appserver
+
+- name: Uwsgi | Install uwsgi configuration file.
+  when: not project.is_local
+  template: src=uwsgi.ini.j2 dest=/etc/uwsgi/apps-available/${project.name}.ini
+  notify: restart uwsgi
+  tags:
+    - configuration
+    - uwsgi
+    - appserver
+    - update

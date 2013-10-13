@@ -1,0 +1,15 @@
+#!/bin/bash
+# Run with:
+# ./play production all
+# ./play production webservers
+# ./play production dbservers
+# ./play production webservers --tags=pip
+
+INVENTORY=$1
+ROLE=${2:-"site"}
+
+echo "Configuring ..."
+echo "inventory: ${INVENTORY}"
+echo "role: ${ROLES}"
+
+/usr/bin/env ansible-playbook -K -i ./inventory/$INVENTORY "./playbook/${ROLE}.yml" "${@:3}"

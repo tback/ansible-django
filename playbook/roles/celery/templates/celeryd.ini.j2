@@ -1,0 +1,22 @@
+; =======================================
+;  celeryd supervisor example for Django
+; =======================================
+
+[program:celery_{{ project.name }}]
+command={{ project.root }}/code/application/manage.py celeryd --loglevel=INFO --settings=base.settings.live
+directory={{ project.root }}/code/application/
+user={{ project.user }}
+numprocs=1
+stdout_logfile=/var/log/celery/{{ project.name }}_daemon.log
+stderr_logfile=/var/log/celery/{{ project.name }}_daemon_error.log
+autostart=true
+autorestart=true
+startsecs=10
+
+; Need to wait for currently executing tasks to finish at shutdown.
+; Increase this if you have very long running tasks.
+stopwaitsecs = 600
+
+; if rabbitmq is supervised, set its priority higher
+; so it starts first
+priority=998

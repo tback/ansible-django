@@ -1,0 +1,69 @@
+---
+- name: Django |  Create Django Database Settings Module
+  when: not project.is_local
+  template: >
+    src=db.py.j2
+    dest=${django.root}/base/settings/modules/db.py
+  tags:
+    - database
+    - application
+    - django
+    - configuration
+    - update
+
+- name: Django |  Create Database Tables
+  django_manage: >
+    command=syncdb
+    app_path=${django.root}
+    settings=${django.settings}
+    virtualenv=${django.virtualenv}
+  tags:
+    - database
+    - application
+    - django
+
+- name: Django |  Migrate Django database.
+  django_manage: >
+    command=migrate
+    app_path=${django.root}
+    settings=${django.settings}
+    virtualenv=${django.virtualenv}
+  tags:
+    - database
+    - update
+    - application
+    - django
+
+- name: Django | Install Fixtures.
+  django_manage: >
+    command=loaddata
+    fixtures=$item
+    app_path=${django.root}
+    settings=${django.settings}
+    virtualenv=${django.virtualenv}
+  with_items: django.fixtures
+  tags:
+    - database
+    - fixtures
+    - application
+    - django
+  notify:
+    - restart uwsgi
+
+- name: Django |  Collate application assets.
+  when: project.mode == 'live'
+  django_manage: >
+    command=collectstatic
+    link=yes
+    app_path=${django.root}
+    settings=${django.settings}
+    virtualenv=${django.virtualenv}
+  tags:
+    - assets
+    - collectstatic
+    - update
+    - application
+    - django
+  notify:
+    - restart nginx
+    - restart uwsgi
