@@ -1,4 +1,10 @@
 ---
+webserver:
+    ssl_private: '$ENV(PWD)/files/ssl/private.pem'
+    ssl_public: '$ENV(PWD)files/ssl/public.pem'
+
+user:
+    ssh_files: '$ENV(PWD)files/ssh'
 
 system:
   apt:

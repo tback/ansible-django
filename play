@@ -8,8 +8,10 @@
 INVENTORY=$1
 ROLE=${2:-"site"}
 
+HEREDIR=$(dirname $0)
+
 echo "Configuring ..."
 echo "inventory: ${INVENTORY}"
 echo "role: ${ROLES}"
 
-/usr/bin/env ansible-playbook -K -i ./inventory/$INVENTORY "./playbook/${ROLE}.yml" "${@:3}"
+/usr/bin/env ansible-playbook -K -i $INVENTORY "${HEREDIR}/playbook/${ROLE}.yml" "${@:3}"
