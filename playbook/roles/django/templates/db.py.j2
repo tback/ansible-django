@@ -19,24 +19,20 @@
 #
 # file: base/settings/live.py
 #
-#    from .modules.db import DatabaseConfig as db
-#
-#    DATABASES = {
-#        'default': {
-#            'ENGINE': db.engine,
-#            'NAME': db.name,
-#            'USER': db.user,
-#            'PASSWORD': db.password,
-#            'HOST': db.host,
-#            'PORT': db.port,
-#        }
-#    }
-#
+#    from .modules.db import *
 
-class DatabaseConfig:
-    engine = 'django.db.backends.postgresql_psycopg2'
-    user = "{{ database.user }}"
-    password = "{{ database.password }}"
-    name = "{{ database.name }}"
-    host = '{{ database.host }}'
-    port = '{{ database.port }}'
+
+DATABASES = {
+    'default': {
+        'ENGINE': "django_postgrespool",
+        'NAME': "{{ database.user }}",
+        'USER': "{{ database.password }}",
+        'PASSWORD': "{{ database.name }}",
+        'HOST': "{{ groups.get('dbservers')[0] }}",
+        'PORT': "{{ database.port }}",
+    }
+}
+
+SOUTH_DATABASE_ADAPTERS = {
+    'default': 'south.db.postgresql_psycopg2'
+}

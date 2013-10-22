@@ -1,0 +1,78 @@
+---
+# - name: ensure known hosts
+#   sudo: yes
+#   sudo_user: ${project.user}
+#   shell: touch ~/.ssh/known_hosts
+
+# - name: removing libdev.uwaterloo.ca from known host
+#   sudo: yes
+#   sudo_user: ${project.user}
+#   shell: ssh-keygen -R $item
+#   with_items: ${user.known_hosts}
+
+# - name: ensure hosts are in ~/.ssh/known_host
+#   sudo: yes
+#   sudo_user: ${project.user}
+#   shell: ssh-keyscan -H $item >> ~/.ssh/known_hosts
+#   with_items: ${user.known_hosts}
+
+# - name: ensure github.com in known host
+#   sudo: yes
+#   sudo_user: ${project.user}
+#   shell: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
+
+- name: Users | Create the SSH directory.
+  sudo: yes
+  sudo_user: ${project.user}
+  file: >
+    state=directory
+    path=${project.root}/home/.ssh/
+  tags:
+    - base
+    - accounts
+    - provision
+
+- name: Users | Upload SSH Config.
+  sudo_user: ${project.user}
+  copy: >
+    src=${user.ssh_files}/config
+    dest=${project.root}home/.ssh/config
+    mode=0600
+  tags:
+    - base
+    - provision
+
+- name: Users | Upload SSH Files.
+  sudo_user: ${project.user}
+  copy: >
+    src=${user.ssh_files}/key
+    dest=${project.root}home/.ssh/id_rsa
+    mode=0600
+  tags:
+    - base
+    - provision
+
+- name: Users | Upload SSH known hosts.
+  sudo_user: ${project.user}
+  copy: >
+    src=${user.ssh_files}/known_hosts
+    dest=${project.root}home/.ssh/known_hosts
+    mode=0600
+  tags:
+    - base
+    - provision
+
+- name: Users | Update the project directory.
+  file: >
+    group=${project.group}
+    owner=${project.user}
+    mode=755
+    state=directory
+    path=${project.root}
+  tags:
+    - base
+
+- name: Users | Change Permissions.
+  shell: chown -R ${project.user}:${project.group} ${project.root}
+  tags: base

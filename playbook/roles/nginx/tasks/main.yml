@@ -16,7 +16,7 @@
 
 - name: Commmon | Upload SSL private key.
   copy: >
-    src={{lookup('file', webserver.ssl_private)}}
+    src=${webserver.ssl_private}
     dest=/etc/nginx/ssl/${project.name}-private-key.pem
   tags:
     - configuration
@@ -24,7 +24,7 @@
 
 - name: Commmon | Upload SSL public key.
   copy: >
-    src={{lookup('file', webserver.ssl_public)}}
+    src=${webserver.ssl_public}
     dest=/etc/nginx/ssl/${project.name}-cert.pem
   tags:
     - configuration

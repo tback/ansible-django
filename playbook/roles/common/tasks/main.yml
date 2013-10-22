@@ -6,21 +6,21 @@
     - provision
 
 - name: Commmon | Install required system packages.
-  when: system.apt is defined
+  when: apt is defined
   apt: >
     pkg=${item}
     state=installed
     update-cache=yes
-  with_items: system.apt
+  with_items: apt
   tags:
     - base
     - packages
     - provision
 
 - name: Commmon | Install required Python packages.
-  when: system.pip is defined
+  when: pip is defined
   easy_install: name=${item}
-  with_items: system.pip
+  with_items: pip
   sudo: yes
   tags:
     - base

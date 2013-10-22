@@ -4,7 +4,6 @@
     home=${project.root}/home
     name=${project.user}
     state=present
-    generate_ssh_key=yes
     groups=www-data
   tags:
     - base
@@ -13,3 +12,4 @@
 - name: Users | Change Permissions.
   shell: chown -R ${project.user}:${project.group} ${project.root}
   tags: base
+
