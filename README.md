@@ -19,6 +19,9 @@ This playbook works with (or will aim to work with) the following technologies:
     `alias playbook='~/Dev/ansible/play'`
 * copy the `inventory` directory to your django project source tree (see below) and put all sensitive information in this folder (assuming your project is private).
 * copy the Vagrantfile to the same location.
+* modify line 51 to point at this repo you cloned:
+`ansible.playbook = "~/Dev/ansible/playbook/site.yml"`
+
 
 ## Running deployments
 
