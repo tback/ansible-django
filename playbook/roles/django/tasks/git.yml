@@ -1,4 +1,26 @@
 ---
+- name: ensure known hosts
+  sudo: yes
+  sudo_user: ${project.user}
+  shell: touch ~/.ssh/known_hosts
+
+- name: removing libdev.uwaterloo.ca from known host
+  sudo: yes
+  sudo_user: ${project.user}
+  shell: ssh-keygen -R $item
+  with_items: ${user.known_hosts}
+
+- name: ensure hosts are in ~/.ssh/known_host
+  sudo: yes
+  sudo_user: ${project.user}
+  shell: ssh-keyscan -H $item >> ~/.ssh/known_hosts
+  with_items: ${user.known_hosts}
+
+- name: ensure github.com in known host
+  sudo: yes
+  sudo_user: ${project.user}
+  shell: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
 - name: Git | Pull sources from the repository.
   sudo: yes
   sudo_user: ${project.user}
