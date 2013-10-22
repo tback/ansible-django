@@ -47,9 +47,10 @@ Vagrant.configure("2") do |config|
     node.vm.provision :ansible do |ansible|
       ansible.playbook = "playbook/site.yml"
       ansible.sudo = true
-      ansible.inventory_path = "./playbook/vagrant"
+      ansible.verbose = 'vvvv'
+      ansible.inventory_path = "./inventory/vagrant"
       ansible.extra_vars = {
-          files: File.expand_path("./inventory/files", File.dirname(__FILE__))
+          files: File.expand_path("./inventory/files/", File.dirname(__FILE__))
         }
     end
 
