@@ -20,4 +20,7 @@ I have provided a simple shortcut command `play`
 ./play production webservers --tags=pip
 ```
 
-An example inventory is included, you should put all sensitive information in this folder
+An example inventory is included, you should :
+- rename this to `inventory` 
+- put all sensitive information in this folder
+ 
