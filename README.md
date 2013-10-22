@@ -18,7 +18,11 @@ This playbook works with (or will aim to work with) the following technologies:
 * edit ~/.bash_rc (or other such file) to include an alias to the `play` script.
     `alias playbook='~/Dev/ansible/play'`
 * copy the `inventory` directory to your django project source tree (see below) and put all sensitive information in this folder (assuming your project is private).
-* run deployments :
+* copy the Vagrantfile to the same location.
+
+## Running deployments
+
+just a small example of things you can do :
 
 ```
 playbook deployment/inventory/production all
@@ -27,6 +31,21 @@ playbook deployment/inventory/production dbservers
 playbook deployment/inventory/production webservers --tags=pip
 ```
 
+## Testing deployments
+
+* install virtualbox first
+
+```
+$ cd deployment
+$ ls -algh
+total 4.0K
+drwxrwxr-x 1 zenobius   56 Oct 23 08:57 .
+drwxrwxr-x 1 zenobius   96 Oct 23 08:56 ..
+drwxr-xr-x 1 zenobius   44 Oct 23 07:21 inventory
+-rw-rw-rw- 1 zenobius 2.0K Oct 23 08:47 Vagrantfile
+
+$ vagrant up
+```
 
 
 ## Django Project Layout
