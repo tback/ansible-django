@@ -31,26 +31,26 @@ An example inventory is included, you should :
 In your django project, you should organise your settings module like so :
 
 * git_root
-  * deployment/
-    * inventory
-  * requirements/
-    * base.list
-    * live.list
-    * test.list
-    * local.list
-  * application/
-    * __init__.py
-    * manage.py
-    * base/
-      * __init__.py
-      * wsgi.py
-      * settings/
-        * modules/
-          * __init__.py
-        * __init__.py
-        * default.py
-        * local.py
-        * live.py
+    * deployment/
+        * inventory
+    * requirements/
+        * base.list
+        * live.list
+        * test.list
+        * local.list
+    * application/
+        * `__init__.py`
+        * manage.py
+        * base/
+            * `__init__.py`
+            * wsgi.py
+            * settings/
+                * modules/
+                    * `__init__.py`
+                * `__init__.py`
+                * default.py
+                * local.py
+                * live.py
 
 
 ### project_root/manage.py
@@ -64,9 +64,9 @@ import os
 import sys
 
 if __name__ == "__main__":
-  os.environ.setdefault("DJANGO_SETTINGS_MODULE", "base.settings.local")
-  from django.core.management import execute_from_command_line
-  execute_from_command_line(sys.argv)
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "base.settings.local")
+    from django.core.management import execute_from_command_line
+    execute_from_command_line(sys.argv)
 ```
 
 ### project_root/base/wsgi.py
@@ -102,10 +102,10 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.sqlite3',
-    'NAME': 'db.sqlite3',
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
+    }
 }
 ...
 
