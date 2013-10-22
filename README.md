@@ -11,19 +11,22 @@ This playbook works with (or will aim to work with) the following technologies:
 * Haystack
 * Redis
 
-I have provided a simple shortcut command `play`
+
+## Installation
+
+* git clone this repo to a sensible location
+* edit ~/.bash_rc (or other such file) to include an alias to the `play` script.
+    `alias playbook='~/Dev/ansible/play'`
+* copy the `inventory` directory to your django project source tree (see below) and put all sensitive information in this folder (assuming your project is private).
+* run deployments :
 
 ```
-./play production all
-./play production webservers
-./play production dbservers
-./play production webservers --tags=pip
+playbook deployment/inventory/production all
+playbook deployment/inventory/production webservers
+playbook deployment/inventory/production dbservers
+playbook deployment/inventory/production webservers --tags=pip
 ```
 
-An example inventory is included, you should :
-* rename this to `inventory`.
-* move it to your django project source tree (see below).
-* put all sensitive information in this folder.
 
 
 ## Django Project Layout
