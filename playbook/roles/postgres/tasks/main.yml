@@ -16,4 +16,16 @@
     - database
     - create
 
-# - name: Allow access to each of the app servers
+- name: Listen on public interface
+  lineinfile: >
+    dest=/etc/postgresql/9.1/main/postgresql.conf
+    regexp="^listen_addresses"
+    insertafter="^#listen_addresses"
+    line="listen_addresses = '*'"
+
+- name: allow access to appservers
+  lineinfile: >
+    dest=/etc/postgresql/9.1/main/pg_hba.conf
+    regexp="${item}"
+    line="host    all             all             {{item}}/32       trust"
+  with_items: groups.get('appservers')

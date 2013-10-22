@@ -37,7 +37,8 @@ playbook deployment/inventory/production webservers --tags=pip
 ## Testing deployments
 
 * install virtualbox first
-
+* edit inventory/vagrant to suit your desired scenerio
+* get the machines created
 ```
 $ cd deployment
 $ ls -algh
@@ -48,6 +49,12 @@ drwxr-xr-x 1 zenobius   44 Oct 23 07:21 inventory
 -rw-rw-rw- 1 zenobius 2.0K Oct 23 08:47 Vagrantfile
 
 $ vagrant up
+```
+
+to test reprovisioning changes
+```
+$ vagrant provision
+
 ```
 
 
