@@ -3,9 +3,10 @@
 ; ==========================================
 
 [program:celerybeat_{{ project.name }}]
-command={{ project.root }}/code/application/manage.py celerybeat --schedule=/var/lib/celery/celerybeat-schedule --loglevel=INFO --settings=base.settings.live
-directory={{ project.root }}/code/application/
+command={{ project.root }}environ/bin/python {{ project.root }}code/application/manage.py celerybeat --schedule={{ project.root }}/celerybeat-schedule --loglevel=INFO --settings=base.settings.live
+directory={{ project.root }}code/application/
 user={{ project.user }}
+group={{ project.group }}
 numprocs=1
 stdout_logfile=/var/log/celery/{{ project.name }}_beat.log
 stderr_logfile=/var/log/celery/{{ project.name }}_beat_error.log

@@ -7,7 +7,6 @@
   roles:
     - { role: common }
     - { role: users }
-    - { role: nginx }
     - { role: uwsgi }
-    - { role: celery }
+    # - { role: celery }
     - { role: django }

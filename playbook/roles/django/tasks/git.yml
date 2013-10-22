@@ -1,12 +1,12 @@
 ---
 - name: Git | Pull sources from the repository.
-  when: not project.is_local
   sudo: yes
   sudo_user: ${project.user}
   git: >
     repo=${project.repo}
     dest=${project.root}/code
     version=${project.branch}
+    depth=1
   tags:
     - repo
     - application

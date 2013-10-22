@@ -3,8 +3,8 @@
 ; =======================================
 
 [program:celery_{{ project.name }}]
-command={{ project.root }}/code/application/manage.py celeryd --loglevel=INFO --settings=base.settings.live
-directory={{ project.root }}/code/application/
+command={{ project.root }}environ/bin/python {{ project.root }}code/application/manage.py celeryd --loglevel=INFO --settings=base.settings.live
+directory={{ project.root }}code/application/
 user={{ project.user }}
 numprocs=1
 stdout_logfile=/var/log/celery/{{ project.name }}_daemon.log

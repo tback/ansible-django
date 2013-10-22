@@ -1,6 +1,5 @@
 ---
 - name: Create Database User
-  when: not project.is_local
   sudo_user: postgres
   postgresql_user: user=${database.user}
                    password=${database.password}
@@ -8,7 +7,6 @@
   tags: database
 
 - name: Create Database.
-  when: not project.is_local
   sudo_user: postgres
   postgresql_db: name=${database.name} owner=${database.user}
                  login_host=${database.host}
