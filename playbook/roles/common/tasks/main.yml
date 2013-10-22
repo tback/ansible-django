@@ -1,12 +1,12 @@
 ---
 - name: Commmon | Create the project directory.
-  when: not project.is_local
   file: state=directory path=${project.root}
   tags:
     - base
     - provision
 
 - name: Commmon | Install required system packages.
+  when: system.apt is defined
   apt: >
     pkg=${item}
     state=installed
@@ -18,9 +18,10 @@
     - provision
 
 - name: Commmon | Install required Python packages.
-  sudo: yes
+  when: system.pip is defined
   easy_install: name=${item}
   with_items: system.pip
+  sudo: yes
   tags:
     - base
     - provision

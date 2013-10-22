@@ -1,26 +1,51 @@
 ---
 - name: Nginx | Create nginx virtualhost placeholder.
   command: touch /etc/nginx/sites-available/${project.name}
-  when: not project.is_local
   tags:
     - configuration
     - nginx
     - webserver
 
-- name: Nginx | Enable nginx virtualhost.
-  command: ln -s /etc/nginx/sites-available/${project.name} /etc/nginx/sites-enabled/${project.name} creates=/etc/nginx/sites-enabled/${project.name}
-  when: not project.is_local
+- name: Commmon | Create the SSL directory.
+  file: >
+    state=directory
+    path=/etc/nginx/ssl/
   tags:
     - configuration
-    - nginx
-    - webserver
+    - ssl
+
+- name: Commmon | Upload SSL private key.
+  copy: >
+    src={{lookup('file', webserver.ssl_private)}}
+    dest=/etc/nginx/ssl/${project.name}-private-key.pem
+  tags:
+    - configuration
+    - ssl
+
+- name: Commmon | Upload SSL public key.
+  copy: >
+    src={{lookup('file', webserver.ssl_public)}}
+    dest=/etc/nginx/ssl/${project.name}-cert.pem
+  tags:
+    - configuration
+    - ssl
 
 - name: Nginx | Install nginx configuration file.
-  template: src=nginx.conf.j2 dest=/etc/nginx/sites-available/${project.name}
-  when: not project.is_local
-  notify: restart nginx
+  template: >
+    src=nginx.conf.j2
+    dest=/etc/nginx/sites-available/${project.name}
   tags:
     - configuration
     - nginx
     - webserver
     - update
+
+- name: Nginx | Enable nginx virtualhost.
+  command: ln -s /etc/nginx/sites-available/${project.name} /etc/nginx/sites-enabled/${project.name} creates=/etc/nginx/sites-enabled/${project.name}
+  notify: restart nginx
+  tags:
+    - configuration
+    - nginx
+    - webserver
+
+

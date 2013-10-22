@@ -1,55 +1,66 @@
 ---
 - name: Users | Create user.
-  when: not project.is_local
-  user: home=${project.root}/home name=${project.user}
-        state=present
-        generate_ssh_key=yes
-        groups=www-data
+  user: >
+    home=${project.root}/home
+    name=${project.user}
+    state=present
+    generate_ssh_key=yes
+    groups=www-data
   tags:
     - base
     - provision
 
 - name: Users | Create the SSH directory.
-  when: not project.is_local
   sudo: yes
   sudo_user: ${project.user}
-  file: state=directory path=${project.root}/home/.ssh/
+  file: >
+    state=directory
+    path=${project.root}/home/.ssh/
   tags:
     - base
     - accounts
     - provision
 
 - name: Users | Upload SSH Config.
-  when: not project.is_local
   sudo_user: ${project.user}
-  copy: src=files/ssh/config dest=${project.root}/home/.ssh/config mode=0600
+  copy: >
+    src=$files/ssh/config
+    dest=${project.root}/home/.ssh/config
+    mode=0600
   tags:
     - base
     - provision
 
 - name: Users | Upload SSH Files.
-  when: not project.is_local
   sudo_user: ${project.user}
-  copy: src=files/ssh/key dest=${project.root}/home/.ssh/id_rsa mode=0600
+  copy: >
+    src=$files/ssh/key
+    dest=${project.root}/home/.ssh/id_rsa
+    mode=0600
   tags:
     - base
     - provision
 
 - name: Users | Upload SSH known hosts.
-  when: not project.is_local
   sudo_user: ${project.user}
-  copy: src=files/ssh/known_hosts dest=${project.root}/home/.ssh/known_hosts mode=0600
+  copy: >
+    src=$files/ssh/known_hosts
+    dest=${project.root}/home/.ssh/known_hosts
+    mode=0600
   tags:
     - base
     - provision
 
 - name: Users | Update the project directory.
-  when: not project.is_local
-  file: group=${project.group} owner=${project.user} mode=755 state=directory path=${project.root}
+  file: >
+    state=directory
+    mode=755
+    group=${project.group}
+    owner=${project.user}
+    path=${project.root}
   tags:
     - base
 
 - name: Users | Change Permissions.
-  when: not project.is_local
   shell: chown -R ${project.user}:${project.group} ${project.root}
   tags: base

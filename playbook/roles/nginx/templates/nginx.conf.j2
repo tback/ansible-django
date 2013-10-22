@@ -10,12 +10,16 @@ server {
     charset                 utf-8;
     server_tokens           off;
 
-    server_name             {{ project.name }};
-    ssl_certificate         {{ project.root }}/ssl/{{ project.name }}-cert.pem;
-    ssl_certificate_key     {{ project.root }}/ssl/{{ project.name }}-private-key.pem;
+    server_name             *.{{ project.name }} {{ project.name }};
+    ssl_certificate         /etc/nginx/ssl/{{ project.name }}-cert.pem;
+    ssl_certificate_key     /etc/nginx/ssl/{{ project.name }}-private-key.pem;
 
     access_log              /var/log/nginx/{{ project.name }}.access.log;
     error_log               /var/log/nginx/{{ project.name }}.error.log;
+    log_format timed_combined '$remote_addr - $remote_user [$time_local]  '
+          '"$request" $status $body_bytes_sent '
+          '"$http_referer" "$http_user_agent" '
+          '$request_time $upstream_response_time $gzip_ratio';
 
     expires modified        -1d;
 

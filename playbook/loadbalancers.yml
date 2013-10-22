@@ -1,0 +1,9 @@
+---
+# file: webservers.yml
+- name: Configure all frontend loadbalancers
+  hosts: loadbalancers
+  sudo: yes
+
+  roles:
+    - { role: common }
+    - { role: nginx }
