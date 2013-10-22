@@ -29,6 +29,7 @@ An example inventory is included, you should :
 ## Django Project Layout
 
 In your django project, you should organise your settings module like so :
+
 * git_root
   * deployment/
     * inventory
