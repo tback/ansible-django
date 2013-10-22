@@ -3,9 +3,9 @@
 192.168.111.100
 
 [webservers]
-192.168.111.101
-192.168.111.102
-192.168.111.103
+192.168.111.101 connection=ssh
+192.168.111.102 connection=ssh
+192.168.111.103 connection=ssh
 
 [dbservers]
 192.168.111.253
@@ -30,6 +30,3 @@ webservers
 dbservers
 loadbalancers
 
-[vagrant:vars]
-ansible_ssh_private_key_file = "$ENV(HOME)/.vagrant.d/insecure_private_key"
-ansible_ssh_user = vagrant
