@@ -9,7 +9,23 @@ This playbook works with (or will aim to work with) the following technologies:
 * PostgreSQL
 * Celery
 * Haystack
+* Elastic Search
 * Redis
+
+
+## Todo
+
+* Database Node
+    * celery
+    * haystack
+    * elasticsearch
+    * redis
+
+* Monitoring
+    * Nagios
+
+* Auto Scaling
+    * nagios triggers to automate ansible scaling
 
 
 ## Installation
