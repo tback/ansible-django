@@ -1,36 +1,4 @@
 ---
-- name: Create Database User
-  sudo_user: postgres
-  postgresql_user: >
-    user=${database.user}
-    password=${database.password}
-    role_attr_flags=CREATEDB,NOSUPERUSER
-  tags: database
-
-- name: Create Database.
-  sudo_user: postgres
-  postgresql_db: >
-    name=${database.name}
-    owner=${database.user}
-    login_host=localhost
-    login_user=${database.user}
-    login_password=${database.password}
-  tags:
-    - database
-    - create
-
-- name: Listen on public interface
-  lineinfile: >
-    dest=/etc/postgresql/9.1/main/postgresql.conf
-    regexp="^listen_addresses"
-    insertafter="^#listen_addresses"
-    line="listen_addresses = '*'"
-  notify: restart postgresql
-
-- name: allow access to appservers
-  lineinfile: >
-    dest=/etc/postgresql/9.1/main/pg_hba.conf
-    regexp="${database.name}.*${item}"
-    line="host    ${database.name}             all             {{item}}/32       trust"
-  with_items: groups.get('appservers')
-  notify: restart postgresql
+- include: packages.yml
+- include: database.yml
+- include: access.yml

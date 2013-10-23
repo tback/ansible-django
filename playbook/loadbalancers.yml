@@ -11,5 +11,4 @@
   hosts: loadbalancers
   sudo: yes
   roles:
-    - { role: common }
     - { role: nginx }

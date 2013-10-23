@@ -13,8 +13,6 @@
   sudo: yes
 
   roles:
-    - { role: common }
-    - { role: users }
     - { role: uwsgi }
     # - { role: celery }
     - { role: django }

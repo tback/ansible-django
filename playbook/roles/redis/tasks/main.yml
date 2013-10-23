@@ -1,7 +1,3 @@
 ---
-- name: Listen on public interface
-  lineinfile: >
-    dest=/etc/redis/redis.conf
-    regexp="^bind"
-    line="bind = '{{ groups.get('dbservers')[0] }}'"
-  notify: restart redis
+- include: packages.yml
+- include: access.yml

@@ -1,5 +1,4 @@
 ---
-
 - name: Git | Pull sources from the repository.
   sudo: yes
   sudo_user: ${project.user}

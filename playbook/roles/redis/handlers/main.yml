@@ -1,8 +1,8 @@
 ---
 - name: reload redis
-  service: name=redis state=reloaded
+  service: name=redis-server state=reloaded
   sudo_user: root
 
 - name: restart redis
-  service: name=redis state=restart
+  service: name=redis-server state=restarted
   sudo_user: root

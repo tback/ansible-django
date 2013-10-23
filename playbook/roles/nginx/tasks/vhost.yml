@@ -1,0 +1,20 @@
+---
+- name: Nginx | Install nginx configuration file.
+  template: >
+    src=nginx.conf.j2
+    dest=/etc/nginx/sites-available/${project.name}
+  tags:
+    - configuration
+    - nginx
+    - webserver
+    - update
+
+- name: Nginx | Enable nginx virtualhost.
+  command: ln -s /etc/nginx/sites-available/${project.name} /etc/nginx/sites-enabled/${project.name} creates=/etc/nginx/sites-enabled/${project.name}
+  notify: restart nginx
+  tags:
+    - configuration
+    - nginx
+    - webserver
+
+
