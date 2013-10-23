@@ -1,32 +1,36 @@
 ---
 - name: BTsync | Create directories
-  file: group=${project.group}
-        owner=${project.user}
-        mode=755
-        state=directory
-        path=${project.root}
+  file: >
+    group=${project.group}
+    owner=${project.user}
+    mode=755
+    state=directory
+    path=${project.root}
   tags:
     - provision
     - paths
 
 - name: BTsync | Upload BTsync Configuration
-  template: src=config.btsync.conf
-            dest=${install_root}/btysnc.conf
+  template: >
+    src=config.btsync.conf
+    dest=${install_root}/btysnc.conf
   tags:
     - provision
     - deploy
 
 - name: BTsync | Upload Upstart job
-  template: src=upstart.btsync.conf
-            dest=/etc/init/btysnc.conf
+  template: >
+    src=upstart.btsync.conf
+    dest=/etc/init/btysnc.conf
   tags:
     - provision
     - deploy
     - configuration
 
 - name: BTsync | Download BTSync
-  get_url: url=${download_url}/${btsync_version}
-           dest=btsync-${btsync_version}.tar.gz
+  get_url: >
+    url=${download_url}/${btsync_version}
+   dest=btsync-${btsync_version}.tar.gz
   tags:
     - provision
     - deploy
