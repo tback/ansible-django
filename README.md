@@ -39,6 +39,7 @@ playbook deployment/inventory/production webservers --tags=pip
 * install virtualbox first
 * edit inventory/vagrant to suit your desired scenerio
 * get the machines created
+
 ```
 $ cd deployment
 $ ls -algh
@@ -52,6 +53,7 @@ $ vagrant up
 ```
 
 to test reprovisioning changes
+
 ```
 $ vagrant provision
 
