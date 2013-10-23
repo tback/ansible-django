@@ -3,9 +3,9 @@
 192.168.111.100
 
 [webservers]
-192.168.111.101 connection=ssh
-192.168.111.102 connection=ssh
-192.168.111.103 connection=ssh
+192.168.111.101 migrations=true syncdb=true fixtures=true
+192.168.111.102
+192.168.111.103
 
 [dbservers]
 192.168.111.253
