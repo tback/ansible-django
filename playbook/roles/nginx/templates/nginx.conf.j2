@@ -1,5 +1,9 @@
 upstream {{ project.name }} {
-    server                  unix:/tmp/django-{{ project.name }}.sock;
+  ip_hash;
+
+{% for host in groups['appservers'] %}
+    server                  {{ host }}:8000 max_fails=3  fail_timeout=15s;
+{% endfor %}
 }
 
 server {
@@ -11,8 +15,10 @@ server {
     server_tokens           off;
 
     server_name             *.{{ project.name }} {{ project.name }};
+
     ssl_certificate         /etc/nginx/ssl/{{ project.name }}-cert.pem;
     ssl_certificate_key     /etc/nginx/ssl/{{ project.name }}-private-key.pem;
+
 
     access_log              /var/log/nginx/{{ project.name }}.access.log;
     error_log               /var/log/nginx/{{ project.name }}.error.log;
@@ -21,12 +27,13 @@ server {
           '"$http_referer" "$http_user_agent" '
           '$request_time $upstream_response_time $gzip_ratio';
 
+
     expires modified        -1d;
 
     rewrite                 ^/(.*)/favicon.ico$ /favicon.ico last;
 
     location /files/ {
-        alias               {{ project.root }}/public/files/;
+        alias               {{ project.root }}public/files/;
     }
 
     location /static/sass/ {
@@ -38,7 +45,7 @@ server {
         return              404;
     }
     location /static/ {
-        alias               {{ project.root }}/public/static/;
+        alias               {{ project.root }}public/static/;
         autoindex           off;
     }
 

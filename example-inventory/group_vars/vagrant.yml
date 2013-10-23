@@ -1,7 +1,4 @@
 ---
-ansible_ssh_private_key_file: ~/.vagrant.d/insecure_private_key
-ansible_ssh_user: vagrant
-
 project:
   name: example.com
   user: examplecom
@@ -29,4 +26,5 @@ database:
   name: examplecom
   host: localhost
   port: 1234
+  redis_id: 1
 

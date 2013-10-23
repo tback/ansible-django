@@ -5,6 +5,4 @@
   sudo: yes
 
   roles:
-    - { role: common }
-    - { role: users }
     - { role: postgres }

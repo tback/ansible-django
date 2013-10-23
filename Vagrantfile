@@ -3,16 +3,19 @@ Vagrant.configure("2") do |config|
   config.vm.box = "precise64"
   config.vm.box_url = 'http://files.vagrantup.com/precise64.box'
 
+  inventory_files = File.expand_path("./inventory/files/", File.dirname(__FILE__))
+  # config.vm.provision "shell", inline: "echo "+inventory_files
+
+
   config.vm.provider :virtualbox do |virtualbox|
     virtualbox.customize ["modifyvm", :id, "--memory", 512]
   end
 
-  config.vm.define :loadbalancer do |node|
+  config.vm.define :dbserver do |node|
     node.vm.box = "precise64"
-    node.vm.hostname = "loadbalancer"
-    node.vm.network :forwarded_port, guest: 80, host: 8080
-    node.vm.network :forwarded_port, guest: 22, host: 2010
-    node.vm.network :private_network, ip: "192.168.111.100"
+    node.vm.hostname = "dbserver"
+    node.vm.network :forwarded_port, guest: 22, host: 2253
+    node.vm.network :private_network, ip: "192.168.111.253"
   end
 
   config.vm.define :appserver1 do |node|
@@ -36,24 +39,20 @@ Vagrant.configure("2") do |config|
     node.vm.network :private_network, ip: "192.168.111.103"
   end
 
-  config.vm.define :dbserver do |node|
+  config.vm.define :loadbalancer do |node|
     node.vm.box = "precise64"
-    node.vm.hostname = "dbserver"
-    node.vm.network :forwarded_port, guest: 22, host: 2253
-    node.vm.network :private_network, ip: "192.168.111.253"
-
+    node.vm.hostname = "loadbalancer"
+    node.vm.network :forwarded_port, guest: 80, host: 8080
+    node.vm.network :forwarded_port, guest: 22, host: 2010
+    node.vm.network :private_network, ip: "192.168.111.100"
     # define ansible provisioning only on last machine
     # in order to deal with https://github.com/mitchellh/vagrant/issues/1784
     node.vm.provision :ansible do |ansible|
-      ansible.playbook = "playbook/site.yml"
+      ansible.playbook = File.expand_path("~/Dev/ansible/playbook/site.yml")
       ansible.sudo = true
-      ansible.verbose = 'vvvv'
       ansible.inventory_path = "./inventory/vagrant"
-      ansible.extra_vars = {
-          files: File.expand_path("./inventory/files/", File.dirname(__FILE__))
-        }
+      ansible.extra_vars = { inventory_files: inventory_files }
     end
-
   end
 
 end
