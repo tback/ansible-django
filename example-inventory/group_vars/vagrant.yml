@@ -26,4 +26,5 @@ database:
   name: examplecom
   host: localhost
   port: 1234
+  redis_id: 1
 

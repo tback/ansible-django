@@ -1,0 +1,10 @@
+---
+# file: dbservers.yml
+- name: Configure all Cache servers
+  hosts: cacheservers
+  sudo: yes
+
+  roles:
+    - { role: common }
+    - { role: users }
+    - { role: redis }

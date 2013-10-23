@@ -25,9 +25,9 @@
 DATABASES = {
     'default': {
         'ENGINE': "django_postgrespool",
-        'NAME': "{{ database.user }}",
-        'USER': "{{ database.password }}",
-        'PASSWORD': "{{ database.name }}",
+        'NAME': "{{ database.name }}",
+        'USER': "{{ database.user }}",
+        'PASSWORD': "{{ database.password }}",
         'HOST': "{{ groups.get('dbservers')[0] }}",
         'PORT': "{{ database.port }}",
     }

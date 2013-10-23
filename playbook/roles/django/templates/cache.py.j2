@@ -1,0 +1,10 @@
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': '{{ groups.get('dbservers')[0] }}:6379',
+        'OPTIONS': {
+            'DB': {{ database.redis_id }},
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+        }
+    }
+}

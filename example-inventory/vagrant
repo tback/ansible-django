@@ -10,6 +10,9 @@
 [dbservers]
 192.168.111.253
 
+[cacheservers]
+192.168.111.253
+
 
 [192.168.111.100:vars]
 ansible_ssh_port=2010
@@ -26,7 +29,8 @@ ansible_ssh_port=2253
 
 
 [vagrant:children]
-webservers
 dbservers
+cacheservers
+webservers
 loadbalancers
 

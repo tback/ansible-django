@@ -10,6 +10,17 @@
     - configuration
     - update
 
+- name: Django |  Create Django Cache Settings Module
+  template: >
+    src=cache.py.j2
+    dest=${django.root}/base/settings/modules/cache.py
+  tags:
+    - cache
+    - application
+    - django
+    - configuration
+    - update
+
 - name: Django |  Create Database Tables
   django_manage: >
     command=syncdb
