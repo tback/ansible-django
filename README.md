@@ -15,11 +15,15 @@ This playbook works with (or will aim to work with) the following technologies:
 
 ## Todo
 
+* Security
+    * close all ports and open only those required
+    * dbservers:
+        * only allow access into postgres port from appservers ip addresses
+
 * Database Node
     * celery
     * haystack
     * elasticsearch
-    * redis
 
 * Monitoring
     * Nagios
