@@ -71,11 +71,9 @@ drwxr-xr-x 1 zenobius   44 Oct 23 07:21 inventory
 
 $ vagrant up
 ... snip hundreds of lines about creating virtualmachines ...
-... snip hundreds of lines about ansible playbook output ...
 
 ```
-
-to test reprovisioning changes
+Then begin provisioning process
 
 ```
 $ vagrant provision
