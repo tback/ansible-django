@@ -41,7 +41,11 @@ playbook deployment/inventory/production webservers --tags=pip
 * get the machines created
 
 ```
+$ pwd
+/home/zenobius/Dev/websites/my-new-project/
+
 $ cd deployment
+
 $ ls -algh
 total 4.0K
 drwxrwxr-x 1 zenobius   56 Oct 23 08:57 .
@@ -50,12 +54,16 @@ drwxr-xr-x 1 zenobius   44 Oct 23 07:21 inventory
 -rw-rw-rw- 1 zenobius 2.0K Oct 23 08:47 Vagrantfile
 
 $ vagrant up
+... snip hundreds of lines about creating virtualmachines ...
+... snip hundreds of lines about ansible playbook output ...
+
 ```
 
 to test reprovisioning changes
 
 ```
 $ vagrant provision
+... snip hundreds of lines about ansible playbook output ...
 
 ```
 
