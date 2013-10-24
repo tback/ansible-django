@@ -1,9 +1,9 @@
 ---
-- name: Pip | Install Requirements.
+- name: Django | Pip | Install Requirements.
   sudo_user: ${project.user}
   pip: >
     requirements=$item
-    virtualenv=${django.virtualenv}
+    virtualenv=${project.virtualenv}
   with_items:
     - ${project.root}code/requirements/base.list
     - ${project.root}code/requirements/${project.mode}.list

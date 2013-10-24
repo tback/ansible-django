@@ -1,5 +1,5 @@
 ---
-- name: Commmon | Install required system packages.
+- name: Django | Packages | Install required system packages.
   apt: >
     pkg=${item}
     state=installed

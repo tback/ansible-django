@@ -1,4 +1,4 @@
-upstream {{ project.name }} {
+upstream django_{{ project.name }} {
   ip_hash;
 
 {% for host in groups['appservers'] %}
@@ -14,7 +14,7 @@ server {
     charset                 utf-8;
     server_tokens           off;
 
-    server_name             *.{{ project.name }} {{ project.name }};
+    server_name             {% for name in nginx.servernames %}{{name}} {%endfor%};
 
     ssl_certificate         /etc/nginx/ssl/{{ project.name }}-cert.pem;
     ssl_certificate_key     /etc/nginx/ssl/{{ project.name }}-private-key.pem;
@@ -32,8 +32,10 @@ server {
 
     rewrite                 ^/(.*)/favicon.ico$ /favicon.ico last;
 
-    location /files/ {
-        alias               {{ project.root }}public/files/;
+    location / {
+        # serve static files from defined root folder;.
+        # @{{project.name}} is a named location for the upstream fallback, see below
+        try_files $uri $uri/index.html $uri.html @{{project.name}};
     }
 
     location /static/sass/ {
@@ -44,15 +46,18 @@ server {
         deny                all;
         return              404;
     }
-    location /static/ {
-        alias               {{ project.root }}public/static/;
-        autoindex           off;
-    }
 
+    location @gitlab {
+        proxy_read_timeout          300;
+        proxy_connect_timeout       300;
+        proxy_redirect              off;
 
-    location / {
-        uwsgi_pass          {{ project.name }};
-        include             /etc/nginx/uwsgi_params;
+        proxy_set_header            X-Forwarded-Proto $scheme;
+        proxy_set_header            Host              $http_host;
+        proxy_set_header            X-Real-IP         $remote_addr;
+
+        uwsgi_pass                  django_{{ project.name }};
+        include                     /etc/nginx/uwsgi_params;
     }
 
 }

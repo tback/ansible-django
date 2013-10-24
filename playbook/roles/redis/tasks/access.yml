@@ -5,4 +5,3 @@
     regexp="^bind"
     line="#bind"
   notify: restart redis
-    # line="#bind = '{{ groups.get('dbservers')[0] }}'"

@@ -1,9 +1,9 @@
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': '{{ groups.get('dbservers')[0] }}:6379',
+        'LOCATION': '{{ groups.get('cacheservers')[0] }}:{{ cache.get('redis_port', 6379) }}',
         'OPTIONS': {
-            'DB': {{ database.redis_id }},
+            'DB': {{ cache.get('redis_id', 1) }},
             'PARSER_CLASS': 'redis.connection.HiredisParser',
         }
     }

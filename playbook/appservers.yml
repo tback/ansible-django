@@ -11,8 +11,6 @@
 - name: Configure all application servers
   hosts: appservers
   sudo: yes
-
   roles:
     - { role: uwsgi }
-    # - { role: celery }
     - { role: django }

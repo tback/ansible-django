@@ -6,17 +6,22 @@
     update-cache=yes
   with_items:
     - build-essential
-    - uwsgi
+    - python-dev
+    - python-setuptools
+    - python-psycopg2
+    - python-virtualenv
+    - python-pip
   tags:
     - packages
     - provision
 
 - name: uWsgi | (pip) Install required system packages.
   pip: name=$item
+  sudo: yes
   with_items:
-    - pip
     - virtualenv
     - uwsgi
   tags:
     - packages
     - provision
+

@@ -1,8 +1,7 @@
 ---
-
 - name: Celery | Install CeleryD supervisor task
   template: >
-    src=celeryd.ini.j2
+    src=upstart.celeryd.conf.j2
     dest=/etc/supervisor/conf.d/${project.name}_celeryd.conf
   notify:
     - restart supervisor
@@ -17,4 +16,3 @@
     - restart supervisor
   tags:
     - celery
-

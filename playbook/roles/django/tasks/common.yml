@@ -1,27 +1,10 @@
 ---
-- name: Django | Create Project root directory.
-  file: >
-    state=directory
-    path=${project.root}
-    group=www-data
-    owner=www-data
-    mode=755
-    state=directory
-  tags:
-    - base
-    - provision
-
-- name: Users | Create user.
+- name: Django | Create application user and home.
   user: >
-    home=${project.root}/home
+    home=${project.root}
     name=${project.user}
-    state=present
     groups=www-data
+    state=present
   tags:
     - base
     - provision
-
-- name: Users | Change Permissions.
-  shell: chown -R ${project.user}:${project.group} ${project.root}
-  tags: base
-

@@ -1,65 +1,45 @@
 ---
-- name: Django | Create Project directory.
-  sudo: yes
+- name: Django | Ssh | Create directory.
   file: >
     state=directory
-    path=${project.root}
+    path=${project.root}/.ssh/
   tags:
     - base
+    - ssh
     - accounts
     - provision
 
-- name: Users | Create the SSH directory.
-  sudo: yes
-  sudo_user: ${project.user}
-  file: >
-    state=directory
-    path=${project.root}/home/.ssh/
-  tags:
-    - base
-    - accounts
-    - provision
-
-- name: Users | Upload SSH Config.
-  sudo_user: ${project.user}
+- name: Django | Ssh | Upload Config.
   copy: >
     src=${user.ssh_files}/config
-    dest=${project.root}home/.ssh/config
+    dest=${project.root}/.ssh/config
     mode=0600
   tags:
     - base
+    - ssh
     - provision
 
-- name: Users | Upload SSH Files.
-  sudo_user: ${project.user}
+- name: Django | Ssh | Upload private key.
   copy: >
     src=${user.ssh_files}/key
-    dest=${project.root}home/.ssh/id_rsa
+    dest=${project.root}/.ssh/id_rsa
     mode=0600
   tags:
     - base
+    - ssh
+    - keys
     - provision
 
-- name: Users | Upload SSH known hosts.
-  sudo_user: ${project.user}
+- name: Django | Ssh | Upload known hosts.
   copy: >
     src=${user.ssh_files}/known_hosts
-    dest=${project.root}home/.ssh/known_hosts
+    dest=${project.root}/.ssh/known_hosts
     mode=0600
   tags:
     - base
+    - ssh
     - provision
 
-- name: Users | Update the project directory.
-  file: >
-    group=${project.group}
-    owner=${project.user}
-    mode=755
-    state=directory
-    path=${project.root}
-  tags:
-    - base
-
-- name: Users | Change Permissions.
-  shell: chown -R ${project.user}:${project.group} ${project.root}
-  tags: base
+- name: Django | Ssh | Change permissions
+  sudo: true
+  shell: chown -R ${project.user}:${project.user} ${project.root} -R

@@ -1,14 +1,18 @@
 ---
 project:
-  name: example.com
+  fqdn: example.com
+  name: examplecom
   user: examplecom
   group: www-data
   mode: live
-  is_local: False
-  is_virtual: False
   branch: develop
   repo: ssh://git@git.example.com:1234/examplecom.git
   root: /var/www/virtualhosts/examplecom/
+
+nginx:
+  servernames:
+    - "*.example.com"
+    - "example.com"
 
 django:
   settings: base.settings.live
@@ -26,5 +30,9 @@ database:
   name: examplecom
   host: localhost
   port: 1234
-  redis_id: 1
 
+message_queue:
+  redis_id: 2
+
+cache:
+  redis_id: 1

@@ -1,0 +1,5 @@
+---
+- name: ensure log directory
+  file: >
+    dest=${project.root}/${project.name}/log/
+    state=directory
