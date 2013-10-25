@@ -1,5 +1,5 @@
 ---
-# file: dbservers.yml
+# file: cacheservers.yml
 - name: Configure all Cache servers
   hosts: cacheservers
   sudo: yes

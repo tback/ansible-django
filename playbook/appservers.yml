@@ -1,12 +1,10 @@
 ---
-# file: webservers.yml
-
+# file: appservers.yml
 - name: Gather data about database servers
   hosts: dbservers
   gather_facts: yes
   tasks:
-    - name: setup
-      shell: ifconfig
+    - debug: Gather Facts
 
 - name: Configure all application servers
   hosts: appservers
