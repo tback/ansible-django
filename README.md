@@ -85,6 +85,29 @@ $ vagrant provision
 
 ```
 
+## Using the playbook
+
+* firstly, make sure your project directory layout matches the layout described below
+* ensure you've followed the steps above in Installation.
+* in your deployment directory :
+
+For the entire infrastructure
+```
+$ playbook inventory/production site
+```
+
+To setup the database servers
+```
+$ playbook inventory/production dbservers
+```
+
+To run the tasks dealing with only installed/updating packages
+```
+$ playbook inventory/production appservers --tags=packages
+```
+
+
+
 
 ## Django Project Layout
 
