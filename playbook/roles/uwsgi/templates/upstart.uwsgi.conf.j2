@@ -10,7 +10,7 @@ respawn
 
 exec /usr/local/bin/uwsgi \
   --socket :8000 \
-  --logto {{ project.root }}log/uwsgi.{{ inventory_hostname.get('ansible_fqdn') }}.log \
+  --logto {{ project.root }}log/uwsgi.{{ ansible_fqdn }}.log \
   --home {{ project.virtualenv }} \
   --env DJANGO_SETTINGS_MODULE={{ django.settings }} \
   --pythonpath {{ project.root }}code/application/ \

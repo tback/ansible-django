@@ -1,7 +1,7 @@
 upstream django_{{ project.name }} {
-{% if groups.get('appservers')|length > 1 and groups.get('appservers')[0] != inventory_hostname.get('ansible_eth0').get('ipv4').get('address') %}
+{% if groups.appservers|length > 1 and groups.appservers[0] != ansible_eth0.ipv4.address %}
   ip_hash;
-{% for host in groups['appservers'] %}
+{% for host in groups.appservers %}
     server                  {{ host }}:8000 max_fails=3  fail_timeout=15s;
 {% endfor %}
 {% else %}
@@ -23,8 +23,8 @@ server {
     ssl_certificate_key     /etc/nginx/ssl/{{ project.name }}-private-key.pem;
 
 
-    access_log              {{ project.root }}log/nginx.access.{{ inventory_hostname.get('ansible_fqdn') }}.log;
-    error_log               {{ project.root }}log/nginx.error.{{ inventory_hostname.get('ansible_fqdn') }}.log;
+    access_log              {{ project.root }}log/nginx.access.{{ ansible_fqdn }}.log;
+    error_log               {{ project.root }}log/nginx.error.{{ ansible_fqdn }}.log;
 
     expires modified        -1d;
 
