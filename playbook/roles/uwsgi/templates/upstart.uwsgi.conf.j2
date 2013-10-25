@@ -10,13 +10,13 @@ respawn
 
 exec /usr/local/bin/uwsgi \
   --socket :8000 \
-  --logto {{ project.root }}/log/application.log \
+  --logto {{ project.root }}log/uwsgi.{{ inventory_hostname.get('ansible_fqdn') }}.log \
   --home {{ project.virtualenv }} \
   --env DJANGO_SETTINGS_MODULE={{ django.settings }} \
-  --pythonpath {{ project.root }}/code/application/ \
+  --pythonpath {{ project.root }}code/application/ \
   --module {{ django.wsgi }} \
-  --static-map /static={{ project.root }}/public/static \
-  --static-map /files={{ project.root }}/public/files \
+  --static-map /static={{ project.root }}public/static \
+  --static-map /files={{ project.root }}public/files \
   --max-requests 1000 \
   --master \
   --processes 1

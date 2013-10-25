@@ -23,8 +23,8 @@ server {
     ssl_certificate_key     /etc/nginx/ssl/{{ project.name }}-private-key.pem;
 
 
-    access_log              /var/log/nginx/{{ project.name }}.access.log;
-    error_log               /var/log/nginx/{{ project.name }}.error.log;
+    access_log              {{ project.root }}log/nginx.access.{{ inventory_hostname.get('ansible_fqdn') }}.log;
+    error_log               {{ project.root }}log/nginx.error.{{ inventory_hostname.get('ansible_fqdn') }}.log;
 
     expires modified        -1d;
 
