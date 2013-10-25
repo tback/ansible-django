@@ -17,4 +17,4 @@ echo "Configuring ..."
 echo "inventory: ${INVENTORY}"
 echo "role: ${ROLES}"
 
-/usr/bin/env ansible-playbook --ask-sudo-pass --inventory-file=$INVENTORY "$(dirname $0)/playbook/${ROLE}.yml" --extra-vars="files=$PWD/deployment/files" "${@:3}"
+/usr/bin/env ansible-playbook --inventory-file=$INVENTORY "$(dirname $0)/playbook/${ROLE}.yml" --extra-vars="inventory_files=$PWD/deployment/inventory/files" "${@:3}"
