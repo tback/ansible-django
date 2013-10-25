@@ -1,5 +1,5 @@
 ---
-- name: ensure log directory
+- name: uWsgi | Create log directory
   file: >
     dest=${project.root}/${project.name}/log/
     state=directory

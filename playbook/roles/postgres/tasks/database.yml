@@ -1,5 +1,6 @@
 ---
 - name: Create Database User
+  sudo: true
   sudo_user: postgres
   postgresql_user: >
     user=${database.user}
