@@ -13,4 +13,5 @@
     regexp="${database.name}.*${item}"
     line="host    ${database.name}             all             {{item}}/32       trust"
   with_items: groups.get('appservers')
+  when: single_server is not defined
   notify: restart postgresql

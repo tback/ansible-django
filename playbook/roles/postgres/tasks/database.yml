@@ -3,6 +3,7 @@
   sudo: true
   sudo_user: postgres
   postgresql_user: >
+    db=${database.name}
     user=${database.user}
     password=${database.password}
     role_attr_flags=CREATEDB,NOSUPERUSER

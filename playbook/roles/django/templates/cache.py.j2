@@ -1,7 +1,23 @@
+# project
+#   __init__.py
+#   manage.py
+#   base/
+#     __init__.py
+#     default.py
+#     live.py
+#     local.py
+#     test.py
+#     modules/
+#       cache.py <---- this file.
+
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
+{% if groups.get('dbservers')|length > 1 and groups.get('dbservers')[0] != inventory_hostname.get('ansible_eth0').get('ipv4').get('address') %}
         'LOCATION': '{{ groups.get('cacheservers')[0] }}:{{ cache.get('redis_port', 6379) }}',
+{% else %}
+        'LOCATION': 'localhost:{{ cache.get('redis_port', 6379) }}',
+{% endif %}
         'OPTIONS': {
             'DB': {{ cache.get('redis_id', 1) }},
             'PARSER_CLASS': 'redis.connection.HiredisParser',

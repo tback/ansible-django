@@ -1,5 +1,5 @@
 upstream django_{{ project.name }} {
-{% if len(groups.get('appservers')) > 1 and groups.get('appservers')[0] != inventory_hostname.get('ansible_eth0').get('ipv4').get('address') %}
+{% if groups.get('appservers')|length > 1 and groups.get('appservers')[0] != inventory_hostname.get('ansible_eth0').get('ipv4').get('address') %}
   ip_hash;
 {% for host in groups['appservers'] %}
     server                  {{ host }}:8000 max_fails=3  fail_timeout=15s;
