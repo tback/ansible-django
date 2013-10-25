@@ -145,6 +145,7 @@ application = get_wsgi_application()
 from .default import *
 from .modules.db import *
 from .modules.cache import *
+from .modules.celery import *
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
