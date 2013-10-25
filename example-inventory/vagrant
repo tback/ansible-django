@@ -14,6 +14,9 @@
 192.168.111.253
 
 
+; these following lines are to
+; deal with the fact that each machine
+; has a different port for ssh
 [192.168.111.100:vars]
 ansible_ssh_port=2010
 
