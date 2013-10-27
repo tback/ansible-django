@@ -1,12 +1,15 @@
 upstream django_{{ project.name }} {
-{% if groups.appservers|length > 1 and groups.appservers[0] != ansible_eth0.ipv4.address %}
+
+{% if not 'appservers' in group_names  %}
   ip_hash;
-{% for host in groups.appservers %}
-    server                  {{ host }}:8000 max_fails=3  fail_timeout=15s;
-{% endfor %}
+  {% for host in groups.get('appservers') %}
+    server                  {{ hostvars[host]['ansible_default_ipv4']['address']  }}:8000 max_fails=3  fail_timeout=15s;
+  {% endfor %}
+
 {% else %}
     server                  127.0.0.1:8000;
 {% endif %}
+
 }
 
 server {
@@ -44,6 +47,18 @@ server {
         deny                all;
         return              404;
     }
+
+    # Appserver Count: {{ groups.appservers|length }}
+    # First Appserver: {{ groups.appservers[0] }}
+    # This node: {{ ansible_eth0.ipv4.address }}
+    # this nodes groups: {{ group_names }}
+
+    {% if 'appservers' in group_names %}
+    location /static {
+        alias {{ project.root }}public/static/;
+        autoindex off;
+    }
+    {% endif %}
 
     location @{{ project.name }} {
         proxy_read_timeout          300;

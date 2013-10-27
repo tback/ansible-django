@@ -15,8 +15,10 @@ exec /usr/local/bin/uwsgi \
   --env DJANGO_SETTINGS_MODULE={{ django.settings }} \
   --pythonpath {{ project.root }}code/application/ \
   --module {{ django.wsgi }} \
+  --master \
+  --processes 1 \
+{% if not 'loadbalancers' in group_names %}
   --static-map /static={{ project.root }}public/static \
   --static-map /files={{ project.root }}public/files \
-  --max-requests 1000 \
-  --master \
-  --processes 1
+{% endif %}
+  --max-requests 1000
