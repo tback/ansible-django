@@ -23,8 +23,8 @@ server {
     ssl_certificate_key     /etc/nginx/ssl/{{ project.name }}-private-key.pem;
 
 
-    access_log              {{ project.root }}log/nginx.access.{{ ansible_fqdn }}.log;
-    error_log               {{ project.root }}log/nginx.error.{{ ansible_fqdn }}.log;
+    access_log              {{ project.root }}logs/nginx.access.{{ ansible_fqdn }}.log;
+    error_log               {{ project.root }}logs/nginx.error.{{ ansible_fqdn }}.log;
 
     expires modified        -1d;
 

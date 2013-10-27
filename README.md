@@ -42,6 +42,14 @@ This playbook works with (or will aim to work with) the following technologies:
 * modify line 51 to point at this repo you cloned:
 `ansible.playbook = "~/Dev/ansible/playbook/site.yml"`
 
+## Minimum Django Applications
+
+I make some assumptions about the packages that you'll use:
+
+* django-postgrespool==0.2.4
+* hiredis==0.1.1
+* django-redis-cache==0.10.0
+
 
 ## Running deployments
 

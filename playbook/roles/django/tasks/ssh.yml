@@ -42,4 +42,10 @@
 
 - name: Django | Ssh | Change permissions
   sudo: true
-  shell: chown -R ${project.user}:${project.user} ${project.root} -R
+  shell: chmod 0700 ${project.root}/.ssh/
+  shell: chown -R ${project.user}:${project.user} ${project.root}.ssh/ -R
+  tags:
+    - base
+    - ssh
+    - provision
+

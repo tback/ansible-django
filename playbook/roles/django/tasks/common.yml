@@ -7,4 +7,13 @@
     state=present
   tags:
     - base
+    - user
+    - provision
+
+- name: Django | Ssh | Change permissions
+  sudo: true
+  shell: chown -R ${project.user}:${project.user} ${project.root} -R
+  tags:
+    - base
+    - user
     - provision
