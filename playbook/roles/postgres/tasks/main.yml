@@ -1,4 +1,6 @@
 ---
 - include: packages.yml
 - include: access.yml
-- include: database.yml
+- sudo: yes
+  sudo_user: postgres
+  include: database.yml

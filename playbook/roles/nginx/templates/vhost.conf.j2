@@ -48,10 +48,6 @@ server {
         return              404;
     }
 
-    # Appserver Count: {{ groups.appservers|length }}
-    # First Appserver: {{ groups.appservers[0] }}
-    # This node: {{ ansible_eth0.ipv4.address }}
-    # this nodes groups: {{ group_names }}
 
     {% if 'appservers' in group_names %}
     location /static {

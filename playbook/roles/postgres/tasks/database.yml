@@ -1,23 +1,18 @@
 ---
+- name: Create Database.
+  postgresql_db: name=${database.name}
+  tags: database
+
 - name: Create Database User
-  sudo: True
-  sudo_user: postgres
   postgresql_user: >
+    name=${database.name}
     user=${database.user}
     password=${database.password}
+  tags: database
+
+- name: Create Database User
+  postgresql_user: >
+    user=${database.user}
     role_attr_flags=CREATEDB,NOSUPERUSER
   tags: database
 
-- name: Create Database.
-  sudo: True
-  sudo_user: postgres
-  # when: master # todo: figure out how master/slave setup works.
-  postgresql_db: >
-    name=${database.name}
-    owner=${database.user}
-    login_host=localhost
-    login_user=${database.user}
-    login_password=${database.password}
-  tags:
-    - database
-    - create
