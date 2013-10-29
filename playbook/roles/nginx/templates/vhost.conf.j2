@@ -22,8 +22,8 @@ server {
 
     server_name             {% for name in nginx.servernames %}{{name}} {%endfor%};
 
-    ssl_certificate         /etc/nginx/ssl/{{ project.name }}-cert.pem;
-    ssl_certificate_key     /etc/nginx/ssl/{{ project.name }}-private-key.pem;
+    ssl_certificate         /etc/nginx/ssl/{{ project.name }}-public;
+    ssl_certificate_key     /etc/nginx/ssl/{{ project.name }}-private;
 
 
     access_log              {{ project.root }}logs/nginx.access.{{ ansible_fqdn }}.log;
