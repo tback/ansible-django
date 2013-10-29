@@ -2,7 +2,7 @@
 - name: Django | Ssh | Create directory.
   file: >
     state=directory
-    path=${project.root}/.ssh/
+    path=${project.root}.ssh/
   tags:
     - base
     - ssh
@@ -12,7 +12,7 @@
 - name: Django | Ssh | Upload Config.
   copy: >
     src=${user.ssh_files}/config
-    dest=${project.root}/.ssh/config
+    dest=${project.root}.ssh/config
     mode=0600
   tags:
     - base
@@ -22,7 +22,7 @@
 - name: Django | Ssh | Upload private key.
   copy: >
     src=${user.ssh_files}/key
-    dest=${project.root}/.ssh/id_rsa
+    dest=${project.root}.ssh/id_rsa
     mode=0600
   tags:
     - base
@@ -33,7 +33,7 @@
 - name: Django | Ssh | Upload known hosts.
   copy: >
     src=${user.ssh_files}/known_hosts
-    dest=${project.root}/.ssh/known_hosts
+    dest=${project.root}.ssh/known_hosts
     mode=0600
   tags:
     - base
@@ -41,8 +41,9 @@
     - provision
 
 - name: Django | Ssh | Change permissions
-  sudo: true
-  shell: chmod 0700 ${project.root}/.ssh/
+  sudo: yes
+  sudo_user: root
+  shell: chmod 0700 ${project.root}.ssh/
   shell: chown -R ${project.user}:${project.user} ${project.root}.ssh/ -R
   tags:
     - base

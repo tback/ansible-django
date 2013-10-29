@@ -3,6 +3,5 @@
 - name: Configure all database servers
   hosts: dbservers
   sudo: yes
-
   roles:
     - { role: postgres }

@@ -1,6 +1,7 @@
 ---
 - name: Django | Assets | Compress
-  shell: command=". ${project.virtualenv}/bin/activate; cd ${django.root}; python ./manage.py compress --settings=${django.settings} --force"
+  sudo_user: ${project.user}
+  shell: command=". ${project.virtualenv}bin/activate; cd ${django.root}; python ./manage.py compress --settings=${django.settings} --force"
   tags:
     - assets
     - collectstatic
@@ -9,6 +10,7 @@
     - django
 
 - name: Django | Assets | Collect
+  sudo_user: ${project.user}
   django_manage: >
     command=collectstatic
     link=yes

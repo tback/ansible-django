@@ -12,9 +12,9 @@
 
 CACHES = {
     'default': {
-        'BACKEND': 'redis_cache.RedisCache',
-{% if groups.get('dbservers')|length > 1 and groups.get('dbservers')[0] != inventory_hostname.get('ansible_eth0').get('ipv4').get('address') %}
-        'LOCATION': '{{ groups.get('cacheservers')[0] }}:{{ cache.get('redis_port', 6379) }}',
+        'BACKEND': '{{ cache.backend | default('redis_cache.RedisCache') }}',
+{% if not 'cacheservers' in group_names %}
+        'LOCATION': '{{ hostvars[host]['ansible_default_ipv4']['address']  }}:{{ cache.get('redis_port', 6379) }}',
 {% else %}
         'LOCATION': 'localhost:{{ cache.get('redis_port', 6379) }}',
 {% endif %}

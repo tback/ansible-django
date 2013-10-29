@@ -1,6 +1,7 @@
 ---
 - name: Django |  Create Database Tables
   when: syncdb is defined
+  sudo_user: ${project.user}
   django_manage: >
     command=syncdb
     app_path=${django.root}
@@ -13,6 +14,7 @@
 
 - name: Django |  Migrate Django database.
   when: migrate is defined
+  sudo_user: ${project.user}
   django_manage: >
     command=migrate
     app_path=${django.root}
@@ -26,6 +28,7 @@
 
 - name: Django | Install Fixtures.
   when: fixtures is defined
+  sudo_user: ${project.user}
   django_manage: >
     command=loaddata
     fixtures=$item
