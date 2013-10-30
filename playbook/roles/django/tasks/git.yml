@@ -10,4 +10,5 @@
   tags:
     - repo
     - application
-
+  notify:
+    - restart uwsgi
