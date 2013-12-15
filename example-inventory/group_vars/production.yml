@@ -70,6 +70,7 @@ database:
   host: localhost
   port: 5432
   user: databaseuser
+  engine: postgresql_psycopg2
   # protip: https://gist.github.com/airtonix/7209175
   password: databasepassword
 

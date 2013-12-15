@@ -25,6 +25,7 @@ django:
     - ${django.root}/base/fixtures/pages.json
 
 database:
+  engine: postgresql_psycopg2
   user: examplecom
   password: some-random-password
   name: examplecom
