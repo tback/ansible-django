@@ -9,6 +9,7 @@
     - base
     - user
     - provision
+    - app
 
 - name: Django | Ssh | Change permissions
   sudo: true
@@ -17,3 +18,4 @@
     - base
     - user
     - provision
+    - app

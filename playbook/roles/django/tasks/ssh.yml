@@ -8,6 +8,7 @@
     - ssh
     - accounts
     - provision
+    - app
 
 - name: Django | Ssh | Upload Config.
   copy: >
@@ -18,6 +19,7 @@
     - base
     - ssh
     - provision
+    - app
 
 - name: Django | Ssh | Upload private key.
   copy: >
@@ -29,6 +31,7 @@
     - ssh
     - keys
     - provision
+    - app
 
 - name: Django | Ssh | Upload known hosts.
   copy: >
@@ -39,6 +42,7 @@
     - base
     - ssh
     - provision
+    - app
 
 - name: Django | Ssh | Change permissions
   sudo: yes
@@ -49,4 +53,5 @@
     - base
     - ssh
     - provision
+    - app
 

@@ -1,5 +1,6 @@
 ---
 - name: Django | Git | Pull sources from the repository.
+  sudo: yes
   sudo_user: ${project.user}
   git: >
     repo=${repo.url}
@@ -9,6 +10,7 @@
     update=yes
   tags:
     - repo
-    - application
+    - app
+
   notify:
     - restart uwsgi

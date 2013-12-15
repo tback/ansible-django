@@ -9,7 +9,7 @@ stop on runlevel [06]
 respawn
 
 exec /usr/local/bin/uwsgi \
-  --socket :8000 \
+  --socket :{{ django.port }} \
   --logto {{ project.root }}logs/uwsgi.{{ ansible_fqdn }}.log \
   --home {{ project.virtualenv }} \
   --env DJANGO_SETTINGS_MODULE={{ django.settings }} \

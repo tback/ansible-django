@@ -6,10 +6,9 @@
     dest=${django.root}base/settings/modules/db.py
   tags:
     - database
-    - application
-    - django
     - configuration
     - update
+    - app
 
 - name: Django | Settings | Create Django Cache Settings Module
   when: cache is defined
@@ -19,10 +18,9 @@
     dest=${django.root}base/settings/modules/cache.py
   tags:
     - cache
-    - application
-    - django
     - configuration
     - update
+    - app
 
 - name: Django | Settings | Create Django Celery Settings Module
   when: message_queue is defined
@@ -32,8 +30,7 @@
     dest=${django.root}base/settings/modules/celery.py
   tags:
     - cache
-    - application
-    - django
+    - app
     - configuration
     - update
 

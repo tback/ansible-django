@@ -10,5 +10,7 @@
     - python-dev
     - python-setuptools
     - python-psycopg2
-    - postgresql-server-dev-all
+    - postgresql-9.1
+    - postgresql-contrib-9.1
+    - postgresql-doc-9.1
     - libpq-dev

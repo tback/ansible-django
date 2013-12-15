@@ -24,11 +24,11 @@
 
 DATABASES = {
     'default': {
-        'ENGINE': "django_postgrespool",
+        'ENGINE': "{{ database.engine }}",
         'NAME': "{{ database.name }}",
         'USER': "{{ database.user }}",
         'PASSWORD': "{{ database.password }}",
-{% if groups.get('dbservers')|length > 1 and groups.get('dbservers')[0] != inventory_hostname.get('ansible_eth0').get('ipv4').get('address') %}
+        {% if not 'dbservers' in group_names %}
         'HOST': "{{ groups.get('dbservers')[0] }}",
         'PORT': "{{ database.port }}",
         {% else %}

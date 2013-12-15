@@ -9,8 +9,7 @@
     virtualenv=${project.virtualenv}
   tags:
     - database
-    - application
-    - django
+    - app
 
 - name: Django |  Migrate Django database.
   when: migrate is defined
@@ -23,8 +22,7 @@
   tags:
     - database
     - update
-    - application
-    - django
+    - app
 
 - name: Django | Install Fixtures.
   when: fixtures is defined
@@ -39,7 +37,7 @@
   tags:
     - database
     - fixtures
-    - application
-    - django
+    - app
+
   notify:
     - restart uwsgi
