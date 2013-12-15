@@ -2,11 +2,11 @@
 - name: restart uwsgi
   sudo_user: root
   service: >
-    name=uwsgi-${project.name}
+    name=${project.name}-uwsgi
     state=restarted
 
 - name: reload uwsgi
   sudo_user: root
   service: >
-    name=uwsgi-${project.name}
+    name=${project.name}-uwsgi
     state=restarted

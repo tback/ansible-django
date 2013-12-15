@@ -42,6 +42,14 @@ This playbook works with (or will aim to work with) the following technologies:
 * modify line 51 to point at this repo you cloned:
 `ansible.playbook = "~/Dev/ansible/playbook/site.yml"`
 
+## Minimum Django Applications
+
+I make some assumptions about the packages that you'll use:
+
+* django-postgrespool==0.2.4
+* hiredis==0.1.1
+* django-redis-cache==0.10.0
+
 
 ## Running deployments
 
@@ -84,6 +92,29 @@ $ vagrant provision
 ... snip hundreds of lines about ansible playbook output ...
 
 ```
+
+## Using the playbook
+
+* firstly, make sure your project directory layout matches the layout described below
+* ensure you've followed the steps above in Installation.
+* in your deployment directory :
+
+For the entire infrastructure
+```
+$ playbook inventory/production site
+```
+
+To setup the database servers
+```
+$ playbook inventory/production dbservers
+```
+
+To run the tasks dealing with only installed/updating packages
+```
+$ playbook inventory/production appservers --tags=packages
+```
+
+
 
 
 ## Django Project Layout
@@ -144,6 +175,7 @@ application = get_wsgi_application()
 from .default import *
 from .modules.db import *
 from .modules.cache import *
+from .modules.celery import *
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG

@@ -1,18 +1,20 @@
 ---
-- name: Celery | Install CeleryD supervisor task
+- name: Celery | Install CeleryBeat upstart jobs
+  when: message_queue is defined
   template: >
-    src=upstart.celeryd.conf.j2
-    dest=/etc/supervisor/conf.d/${project.name}_celeryd.conf
+    src=upstart.celerybeat.conf.j2
+    dest=/etc/init/{{project.name}}-celerybeat.conf
   notify:
-    - restart supervisor
+    - restart celery beat
   tags:
     - celery
 
-- name: Celery | Install CeleryBeat supervisor task
+- name: Celery | Install Celery Worker upstart jobs
+  when: message_queue is defined
   template: >
-    src=celerybeat.ini.j2
-    dest=/etc/supervisor/conf.d/${project.name}_celerybeat.conf
+    src=upstart.celeryworker.conf.j2
+    dest=/etc/init/{{project.name}}-celeryworker.conf
   notify:
-    - restart supervisor
+    - restart celery workers
   tags:
     - celery

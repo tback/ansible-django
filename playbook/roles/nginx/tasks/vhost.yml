@@ -5,18 +5,11 @@
     path=/etc/nginx/sites-enabled/default
     state=absent
 
-- name: Nginx | Enable nginx virtualhost.
-  shell: ln -s /etc/nginx/sites-available/${project.name} /etc/nginx/sites-enabled/${project.name} creates=/etc/nginx/sites-enabled/${project.name}
-  tags:
-    - configuration
-    - nginx
-    - webserver
-
 - name: Nginx | Install nginx configuration file.
   notify: restart nginx
   template: >
     src=vhost.conf.j2
-    dest=/etc/nginx/sites-available/${project.name}
+    dest=/etc/nginx/sites-enabled/${project.name}
   tags:
     - configuration
     - nginx

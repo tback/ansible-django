@@ -24,12 +24,17 @@
 
 DATABASES = {
     'default': {
-        'ENGINE': "django_postgrespool",
+        'ENGINE': "{{ database.engine }}",
         'NAME': "{{ database.name }}",
         'USER': "{{ database.user }}",
         'PASSWORD': "{{ database.password }}",
+        {% if not 'dbservers' in group_names %}
         'HOST': "{{ groups.get('dbservers')[0] }}",
         'PORT': "{{ database.port }}",
+        {% else %}
+        'HOST': "localhost",
+        'PORT': "",
+        {% endif %}
     }
 }
 

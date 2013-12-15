@@ -3,7 +3,7 @@
   notify: restart uwsgi
   template: >
     src=upstart.uwsgi.conf.j2
-    dest=/etc/init/uwsgi-${project.name}.conf
+    dest=/etc/init/${project.name}-uwsgi.conf
     owner=root
     group=root
     mode=0644
@@ -15,6 +15,8 @@
 
 - name: uWsgi | Start daemon and enable it for system startup
   service: >
-    name=uwsgi-${project.name}
+    name=${project.name}-uwsgi
     state=started
     enabled=yes
+  tags:
+    - uwsgi

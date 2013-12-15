@@ -4,11 +4,10 @@
   pip: >
     requirements=$item
     virtualenv=${project.virtualenv}
-  with_items:
-    - ${project.root}code/requirements/base.list
-    - ${project.root}code/requirements/${project.mode}.list
+  with_items: ${project.requirements}
   tags:
     - packages
     - application
     - pip
+    - app
 
